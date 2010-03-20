@@ -1,4 +1,4 @@
-require 'safebox/sanfeox'
+require 'safebox/safebox'
 
 class Safebox::Box
 	attr_reader :_, :db
