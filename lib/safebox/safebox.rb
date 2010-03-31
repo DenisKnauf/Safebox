@@ -31,12 +31,13 @@ module Safebox
 		end
 
 		def eval *paras, &exe
-			ret = self.run( *paras, &exe)
-			case ret.first
+			type, value = self.run( *paras, &exe)
+			case type
 			when :exception  # Really unsecure. Somebody can create an own exception with own #to_s, #class or #backtrace.
-				on_exception ret.last
+				on_exception value
 				nil
-			when :value  then ret.last
+			when :value  then value
+			else # Not possible
 			end
 		end
 		public :eval
