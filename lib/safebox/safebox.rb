@@ -8,7 +8,7 @@ module Safebox
 				$SAFE = 4
 				this = box.new *paras
 				begin
-					[:value, this.instance_eval( exe, "Safebox")]
+					[:value, String === exe ? this.instance_eval( exe, "Safebox") : this.instance_eval( &exe)]
 				rescue Object
 					[:exception, $!]
 				end
@@ -23,5 +23,22 @@ module Safebox
 			end
 		end
 		alias new_class create_class
+
+		def on_exception exc
+			$stdout.puts "#{exc} (#{exc.class})\n\t#{exc.backtrace.join"\n\t"}"
+		rescue Object
+			on_exception $!
+		end
+
+		def eval *paras, &exe
+			ret = self.run( *paras, &exe)
+			case ret.first
+			when :exception  # Really unsecure. Somebody can create an own exception with own #to_s, #class or #backtrace.
+				on_exception ret.last
+				nil
+			when :value  then ret.last
+			end
+		end
+		public :eval
 	end
 end

@@ -3,7 +3,7 @@ require 'safebox/safebox'
 class Safebox::Box
 	attr_reader :_, :db
 
-	def initialize db, _ = nil, _e
+	def initialize db, _ = nil, _e = nil
 		@_, @db, @_e = _, db, _e
 	end
 
