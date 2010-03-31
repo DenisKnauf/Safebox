@@ -17,6 +17,7 @@ Usage
 
 First load the safebox:
 
+	#! ruby
 	require 'safebox'
 
 The most things in your Safebox are possible:
