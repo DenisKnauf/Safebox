@@ -33,7 +33,7 @@ module Safebox
 		def eval *paras, &exe
 			type, value = self.run( *paras, &exe)
 			case type
-			when :exception  # Really unsecure. Somebody can create an own exception with own #to_s, #class or #backtrace.
+			when :exception
 				on_exception value
 				nil
 			when :value  then value
